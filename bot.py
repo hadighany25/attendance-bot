@@ -4,6 +4,25 @@ from datetime import datetime
 from fpdf import FPDF
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackQueryHandler, ContextTypes
+import http.server
+import socketserver
+import threading
+import os
+
+# ==========================================
+# ១. ផ្នែកបន្លំ RENDER (បន្ថែមនៅទីនេះ)
+# ==========================================
+def run_dummy_server():
+    # Render ផ្ដល់ Port ឱ្យតាមរយៈ Environment Variable ឈ្មោះ "PORT"
+    # បើរកមិនឃើញ វាប្រើ Port 8080 ជា Default
+    port = int(os.environ.get("PORT", 8080))
+    handler = http.server.SimpleHTTPRequestHandler
+    with socketserver.TCPServer(("", port), handler) as httpd:
+        print(f"✅ Dummy Server started at port {port}")
+        httpd.serve_forever()
+
+# ចាប់ផ្ដើម Server ក្នុង Thread ថ្មី ដើម្បីកុំឱ្យវាទាក់ជាមួយ Bot
+threading.Thread(target=run_dummy_server, daemon=True).start()
 
 # --- CONFIG ---
 TOKEN = '8161943789:AAHE-qdQFSJw2rMuuKt3tdY6G9EmValaFXU'
