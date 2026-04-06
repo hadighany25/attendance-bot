@@ -247,8 +247,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
             c.execute("INSERT INTO employees VALUES (?, ?, ?, ?, ?, ?)", (new_id, name, int(age), phone, pos, user_id))
             conn.commit()
             conn.close()
-            await update.message.reply_text(f"✅ **បន្ថែមបុគ្គលិកជោគជ័យ!**\n🆔 ID: `{new_id}`\n👤 ឈ្មោះ: `{name}`\n💼 តួនាទី: `{pos}`", parse_mode='Markdown')
-            context.user_data.clear()
+            await update.message.reply_text(f"✅ **បន្ថែមបុគ្គលិកជោគជ័យ!**\n🆔 ID: `{new_id}`\n👤 ឈ្មោះ: `{name}`\n🎂 អាយុ: `{age}`\n💼 តួនាទី: `{pos}`\n📞 លេខ: `{phone}`", parse_mode='Markdown')
         else:
             await update.message.reply_text("⚠️ ទម្រង់ខុស! សូមផ្ញើ៖ `ឈ្មោះ អាយុ លេខ តួនាទី`")
         return
